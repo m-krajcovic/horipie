@@ -27,7 +27,7 @@ exports.Chart = function(parent, chartName) {
     legend.className = 'legend';
     wrapper.appendChild(legend);
 
-    const bars = [];
+    let bars = [];
 
     function refresh() {
         totalCount.textContent = total + ' total';
@@ -56,29 +56,57 @@ exports.Chart = function(parent, chartName) {
         });
     }
 
+    function createBar(name, count, color) {
+        const barElement = document.createElement('div');
+        barElement.className = 'bar';
+        barElement.style.background = color;
+        chart.appendChild(barElement);
+
+        const legendElement = document.createElement('div');
+        legendElement.className = 'legend-item';
+        legendElement.style.borderColor = color;
+        legend.appendChild(legendElement);
+
+        bind([barElement, legendElement]);
+        return {name, count, color, barElement, legendElement};
+    }
+
+    function reset() {
+        total = 0;
+        totalCount.textContent = '0 total';
+        bars.forEach(bar => {
+            chart.removeChild(bar.barElement);
+            legend.removeChild(bar.legendElement);
+        });
+        bars = [];
+    }
+
     return {
         total: () => {
             return total;
         },
         addBar: (name, count, color) => {
             total = total + count;
-
-            const barElement = document.createElement('div');
-            barElement.className = 'bar';
-            barElement.style.background = color;
-            chart.appendChild(barElement);
-
-            const legendElement = document.createElement('div');
-            legendElement.className = 'legend-item';
-            legendElement.style.borderColor = color;
-            legend.appendChild(legendElement);
-
-            bind([barElement, legendElement]);
-            bars.push({name, count, color, barElement, legendElement});
+            bars.push(createBar(name, count, color));
             refresh();
         },
-        addBars: () => {
-
-        }
+        addBars: (barsDesc) => {
+            // barsDesc should be array of arrays [[name,count,color],...]
+            barsDesc.forEach(bar => {
+                total = total + bar[1];
+                bars.push(createBar(bar[0], bar[1], bar[2]));
+            });
+            refresh();
+        },
+        setBars: (barsDesc) => {
+            // barsDesc should be array of arrays [[name,count,color],...]
+            reset();
+            barsDesc.forEach(bar => {
+                total = total + bar[1];
+                bars.push(createBar(bar[0], bar[1], bar[2]));
+            });
+            refresh();
+        },
+        reset: reset
     }
 };
