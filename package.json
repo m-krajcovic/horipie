@@ -1,0 +1,16 @@
+{
+  "name": "horipie",
+  "version": "1.0.0",
+  "description": "Simple horizontal piechart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "piechart",
+    "horizontal",
+    "chart"
+  ],
+  "author": "Michal Krajcovic <mich.krajcovic@gmail.com>",
+  "license": "ISC"
+}
