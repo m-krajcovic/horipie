@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Simple horizontal piechart",
   "main": "index.js",
+  "repository": {
+    "type" : "git",
+    "url": "https://github.com/m-krajcovic/horipie.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
