@@ -1,4 +1,4 @@
-exports.Chart = function(parent, chartName) {
+function Chart(parent, chartName) {
     let total = 0;
 
     const wrapper = document.createElement('div');
@@ -35,9 +35,10 @@ exports.Chart = function(parent, chartName) {
             const percent = (bar.count / total) * 100;
             bar.barElement.style.width = percent + "%";
             bar.legendElement.innerHTML =
-                `<div class="legend-item-name">${bar.name}</div>
-      <span class="legend-item-count">${bar.count}</span>
-      <span class="legend-item-percent" style="color: ${bar.color}">${Number(percent).toFixed(2)}%</span>`
+                `<span style="background: ${bar.color}" class="legend-item-line"></span>
+                <span class="legend-item-details"><div class="legend-item-name">${bar.name}</div>
+                <span class="legend-item-percent" style="color: ${bar.color}">${Number(percent).toFixed(2)}%</span>
+                <span class="legend-item-count">${bar.count}</span><span>`
         });
     }
 
@@ -64,7 +65,6 @@ exports.Chart = function(parent, chartName) {
 
         const legendElement = document.createElement('div');
         legendElement.className = 'legend-item';
-        legendElement.style.borderColor = color;
         legend.appendChild(legendElement);
 
         bind([barElement, legendElement]);
@@ -109,4 +109,6 @@ exports.Chart = function(parent, chartName) {
         },
         reset: reset
     }
-};
+}
+
+module.exports = Chart;

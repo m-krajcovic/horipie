@@ -52,31 +52,57 @@
     flex: 1;
     margin-right: 10px;
     margin-bottom: 10px;
-    border-left: 4px solid black;
     padding: 0 5px;
     cursor: pointer;
     transition: all .2s ease-in;
+    display: flex;
+}
+
+.horipie > .legend > .legend-item > .legend-item-line {
+    display: inline-block;
+    width: 2px;
+    height: 100%;
+    transition: all .2s ease-in;
+}
+
+.horipie > .legend > .legend-item > .legend-item-details {
+    margin-left: 5px;
 }
 
 .horipie > .legend > .legend-item:last-child {
     margin-right: 0;
 }
 
-.horipie > .legend > .legend-item > .legend-item-name {
+.horipie > .legend > .legend-item .legend-item-name {
+    font-size: 13px;
+    color: #888;
+}
+
+.horipie > .legend > .legend-item .legend-item-count {
+    transition: all .2s ease-in;
+    transform-origin: 50% 50%;
     font-size: 13px;
     color: #666;
 }
 
-.horipie > .legend > .legend-item > .legend-item-count {
-    transition: all .2s ease-in;
+.horipie > .legend > .legend-item .legend-item-percent {
     font-size: 24px;
-    color: #333;
 }
 
-.horipie > .legend > .legend-item > .legend-item-percent {
-    font-size: 13px;
+.horipie > .legend > .legend-item.active {
+    border-width: 4px;
 }
 
-.horipie > .legend > .legend-item.active > .legend-item-count {
-    font-weight: bold;
+.horipie > .legend > .legend-item.active .legend-item-percent {
+    font-weight: 600;
+}
+
+
+.horipie > .legend > .legend-item.active .legend-item-name {
+    font-weight: 600;
+    color: #4B4848;
+}
+
+.horipie > .legend > .legend-item.active > .legend-item-line {
+    transform: scale(2, 1);
 }
