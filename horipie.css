@@ -61,7 +61,6 @@
 .horipie > .legend > .legend-item > .legend-item-line {
     display: inline-block;
     width: 2px;
-    height: 100%;
     transition: all .2s ease-in;
 }
 

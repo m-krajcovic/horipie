@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="horipie.css">
+        <script src="horipie.js"></script>
+    </head>
+    <body>
+        <div id="placeholder"></div>
+        <script>
+            var placeholder = document.getElementById('placeholder');
+            var chart = new Horipie(placeholder, 'Title');
+            chart.setBars([['Bad', 30, 'red'], ['Good', 50, 'green']]);
+        </script>
+    </body>
+</html>

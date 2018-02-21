@@ -1,56 +1,54 @@
-function Chart(parent, chartName) {
-    let total = 0;
+'use strict';
 
-    const wrapper = document.createElement('div');
+function Horipie(parent, chartName) {
+    var _total = 0;
+
+    var wrapper = document.createElement('div');
     wrapper.className = 'horipie';
     parent.appendChild(wrapper);
 
-    const chartTitle = document.createElement('div');
+    var chartTitle = document.createElement('div');
     chartTitle.className = 'chart-title-wrapper';
     wrapper.appendChild(chartTitle);
 
-    const titleText = document.createElement('div');
+    var titleText = document.createElement('div');
     titleText.className = 'title';
     titleText.textContent = chartName;
     chartTitle.appendChild(titleText);
 
-    const totalCount = document.createElement('div');
+    var totalCount = document.createElement('div');
     totalCount.className = 'total-count';
     totalCount.textContent = '0 total';
     chartTitle.appendChild(totalCount);
 
-    const chart = document.createElement('div');
+    var chart = document.createElement('div');
     chart.className = 'chart';
     wrapper.appendChild(chart);
 
-    const legend = document.createElement('div');
+    var legend = document.createElement('div');
     legend.className = 'legend';
     wrapper.appendChild(legend);
 
-    let bars = [];
+    var bars = [];
 
     function refresh() {
-        totalCount.textContent = total + ' total';
-        bars.forEach(bar => {
-            const percent = (bar.count / total) * 100;
+        totalCount.textContent = _total + ' total';
+        bars.forEach(function (bar) {
+            var percent = bar.count / _total * 100;
             bar.barElement.style.width = percent + "%";
-            bar.legendElement.innerHTML =
-                `<span style="background: ${bar.color}" class="legend-item-line"></span>
-                <span class="legend-item-details"><div class="legend-item-name">${bar.name}</div>
-                <span class="legend-item-percent" style="color: ${bar.color}">${Number(percent).toFixed(2)}%</span>
-                <span class="legend-item-count">${bar.count}</span><span>`
+            bar.legendElement.innerHTML = '<span style="background: ' + bar.color + '" class="legend-item-line"></span>\n                <span class="legend-item-details"><div class="legend-item-name">' + bar.name + '</div>\n                <span class="legend-item-percent" style="color: ' + bar.color + '">' + Number(percent).toFixed(2) + '%</span>\n                <span class="legend-item-count">' + bar.count + '</span><span>';
         });
     }
 
     function bind(elements) {
-        elements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                elements.forEach(e => {
+        elements.forEach(function (element) {
+            element.addEventListener('mouseenter', function () {
+                elements.forEach(function (e) {
                     e.classList.add('active');
                 });
             });
-            element.addEventListener('mouseleave', () => {
-                elements.forEach(e => {
+            element.addEventListener('mouseleave', function () {
+                elements.forEach(function (e) {
                     e.classList.remove('active');
                 });
             });
@@ -58,23 +56,23 @@ function Chart(parent, chartName) {
     }
 
     function createBar(name, count, color) {
-        const barElement = document.createElement('div');
+        var barElement = document.createElement('div');
         barElement.className = 'bar';
         barElement.style.background = color;
         chart.appendChild(barElement);
 
-        const legendElement = document.createElement('div');
+        var legendElement = document.createElement('div');
         legendElement.className = 'legend-item';
         legend.appendChild(legendElement);
 
         bind([barElement, legendElement]);
-        return {name, count, color, barElement, legendElement};
+        return { name: name, count: count, color: color, barElement: barElement, legendElement: legendElement };
     }
 
     function reset() {
-        total = 0;
+        _total = 0;
         totalCount.textContent = '0 total';
-        bars.forEach(bar => {
+        bars.forEach(function (bar) {
             chart.removeChild(bar.barElement);
             legend.removeChild(bar.legendElement);
         });
@@ -82,33 +80,33 @@ function Chart(parent, chartName) {
     }
 
     return {
-        total: () => {
-            return total;
+        total: function total() {
+            return _total;
         },
-        addBar: (name, count, color) => {
-            total = total + count;
+        addBar: function addBar(name, count, color) {
+            _total = _total + count;
             bars.push(createBar(name, count, color));
             refresh();
         },
-        addBars: (barsDesc) => {
+        addBars: function addBars(barsDesc) {
             // barsDesc should be array of arrays [[name,count,color],...]
-            barsDesc.forEach(bar => {
-                total = total + bar[1];
+            barsDesc.forEach(function (bar) {
+                _total = _total + bar[1];
                 bars.push(createBar(bar[0], bar[1], bar[2]));
             });
             refresh();
         },
-        setBars: (barsDesc) => {
+        setBars: function setBars(barsDesc) {
             // barsDesc should be array of arrays [[name,count,color],...]
             reset();
-            barsDesc.forEach(bar => {
-                total = total + bar[1];
+            barsDesc.forEach(function (bar) {
+                _total = _total + bar[1];
                 bars.push(createBar(bar[0], bar[1], bar[2]));
             });
             refresh();
         },
         reset: reset
-    }
+    };
 }
 
-module.exports = Chart;
+module.exports = Horipie;

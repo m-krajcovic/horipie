@@ -1,6 +1,6 @@
 {
   "name": "horipie",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple horizontal piechart",
   "main": "horipie.js",
   "repository": {
